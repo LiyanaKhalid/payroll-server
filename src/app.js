@@ -12,6 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // Sync database
-database.sync();
+database
+  .sync()
+  .then(() => console.log("Database synced successfully"))
+  .catch((err) => console.error("Error syncing database:", err));
 
 module.exports = app;
