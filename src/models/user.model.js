@@ -1,33 +1,21 @@
-const bcrypt = require("bcryptjs");
-const { Model } = require("sequelize");
+const { DataTypes } = require("sequelize");
+const connection = require("../configs/connection");
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static async hashPassword(password) {
-      return await bcrypt.hash(password, 10);
-    }
-    async validatePassword(password) {
-      return await bcrypt.compare(password, this.password_hash);
-    }
-  }
+const User = connection.define("User", {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password_hash: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
 
-  User.init(
-    {
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password_hash: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      sequelize,
-      modelName: "User",
-    }
-  );
-
-  return User;
-};
+module.exports = User;
