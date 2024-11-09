@@ -13,10 +13,17 @@ const generateToken = async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
       return res.status(401).json({ error: "Invalid username or password" });
     }
-    const token = JWT.sign({ id: user.id, username }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    res.json({ token });
+    const accessToken = JWT.sign(
+      { id: user.id, username, type: "access" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    const refreshToken = JWT.sign(
+      { id: user.id, username, type: "refresh" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1w" }
+    );
+    res.json({ accessToken, refreshToken });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
@@ -24,20 +31,22 @@ const generateToken = async (req, res) => {
 };
 
 const refreshToken = async (req, res) => {
-  const { token } = req.body;
-  if (!token) {
-    return res.status(400).json({ error: "Token is required" });
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(400).json({ error: "Refresh token is required" });
   }
 
   try {
-    const { id, username } = JWT.verify(token, process.env.JWT_SECRET);
-    const newToken = JWT.sign({ id, username }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    res.json({ token: newToken });
+    const { id, username } = JWT.verify(refreshToken, process.env.JWT_SECRET);
+    const accessToken = JWT.sign(
+      { id, username, type: "access" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.json({ accessToken, refreshToken });
   } catch (err) {
     console.error(err);
-    res.status(401).json({ error: "Invalid or expired token" });
+    res.status(401).json({ error: "Invalid or expired refresh token" });
   }
 };
 
