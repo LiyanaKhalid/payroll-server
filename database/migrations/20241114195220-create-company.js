@@ -14,6 +14,11 @@ module.exports = {
       logo_url: {
         type: Sequelize.STRING,
       },
+      user_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: { model: "Users", key: "id" },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
