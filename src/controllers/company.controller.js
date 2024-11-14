@@ -1,3 +1,3 @@
-const Company = require("../models/company.model");
+const { Company } = require("../models");
 
 module.exports = {};
