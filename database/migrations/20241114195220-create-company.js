@@ -10,9 +10,11 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       logo_url: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       user_id: {
         type: Sequelize.UUID,
