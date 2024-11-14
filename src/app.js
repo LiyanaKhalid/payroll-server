@@ -1,8 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const database = require("./configs/connection");
 const routes = require("./routes");
 
 const app = express();
+
+// CORS
+app.use(cors());
 
 // Parsers
 app.use(express.json());
