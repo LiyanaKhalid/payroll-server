@@ -18,6 +18,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: { model: "Users", key: "id" },
+        onDelete: "RESTRICT",
       },
       createdAt: {
         allowNull: false,
