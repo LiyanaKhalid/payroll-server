@@ -10,4 +10,15 @@ const getAll = async (req, res) => {
   }
 };
 
-module.exports = { getAll };
+const getOne = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const company = await Company.findByPk(id);
+    res.json({ company });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getAll, getOne };
