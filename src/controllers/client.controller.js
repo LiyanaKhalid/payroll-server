@@ -23,4 +23,14 @@ const getOne = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOne };
+const createOne = async (req, res) => {
+  try {
+    const client = await Client.create({ ...req.body });
+    res.status(201).json({ client });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getAll, getOne, createOne };
