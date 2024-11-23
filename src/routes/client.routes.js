@@ -11,5 +11,6 @@ router.use(authenticateToken);
 router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 router.post("/", validatePayload(schemas.createSchema), controller.createOne);
+router.put("/:id", validatePayload(schemas.createSchema), controller.updateOne);
 
 module.exports = router;
