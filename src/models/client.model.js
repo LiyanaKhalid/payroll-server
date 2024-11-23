@@ -13,47 +13,47 @@ const Client = database.define("Client", {
     allowNull: false,
   },
   address: {
-    type: Sequelize.TEXT,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
   gst: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   tan: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   contact_number: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   contract_value: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   contract_category: {
-    type: Sequelize.ENUM("cleaning", "manpower"),
+    type: DataTypes.ENUM("cleaning", "manpower"),
     allowNull: true,
   },
   contract_duration: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   days: {
-    type: Sequelize.FLOAT,
+    type: DataTypes.FLOAT,
     allowNull: true,
   },
   epbg_date: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   epbg_amount: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   epbg_expiry_date: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   company_id: {
