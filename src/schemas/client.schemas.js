@@ -9,7 +9,7 @@ const createSchema = Joi.object({
   contract_value: Joi.string().required(),
   contract_category: Joi.string().valid("cleaning", "manpower").required(),
   contract_duration: Joi.string().required(),
-  days: Joi.string().required(),
+  days: Joi.number().required(),
   epbg_amount: Joi.string().required(),
   epbg_expiry_date: Joi.string().required(),
   epbg_date: Joi.string().required(),

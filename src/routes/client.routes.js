@@ -12,5 +12,6 @@ router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 router.post("/", validatePayload(schemas.createSchema), controller.createOne);
 router.put("/:id", validatePayload(schemas.createSchema), controller.updateOne);
+router.delete("/:id", controller.deleteOne);
 
 module.exports = router;

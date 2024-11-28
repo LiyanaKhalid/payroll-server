@@ -37,11 +37,22 @@ const updateOne = async (req, res) => {
   const { id } = req.params;
   try {
     const client = await Client.update({ ...req.body }, { where: { id } });
-    res.status(201).json({ client });
+    res.status(200).json({ client });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-module.exports = { getAll, getOne, createOne, updateOne };
+const deleteOne = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Client.destroy({ where: { id } });
+    res.status(200).json({});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getAll, getOne, createOne, updateOne, deleteOne };
