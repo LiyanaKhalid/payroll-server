@@ -2,6 +2,7 @@ const User = require("./user.model");
 const Company = require("./company.model");
 const Client = require("./client.model");
 const Employee = require("./employee.model");
+const Attendance = require("./attendance.model");
 
 // ------ START: Model associations ------
 
@@ -38,6 +39,28 @@ Employee.belongsTo(Client, {
   onDelete: "RESTRICT",
 });
 
+Client.hasMany(Attendance, {
+  foreignKey: "client_id",
+  as: "attendances",
+  onDelete: "RESTRICT",
+});
+Attendance.belongsTo(Client, {
+  foreignKey: "client_id",
+  as: "client",
+  onDelete: "RESTRICT",
+});
+
+Employee.hasMany(Attendance, {
+  foreignKey: "employee_id",
+  as: "attendances",
+  onDelete: "RESTRICT",
+});
+Attendance.belongsTo(Employee, {
+  foreignKey: "employee_id",
+  as: "employee",
+  onDelete: "RESTRICT",
+});
+
 // ------ END: Model associations ------
 
-module.exports = { User, Company, Client, Employee };
+module.exports = { User, Company, Client, Employee, Attendance };
