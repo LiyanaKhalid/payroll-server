@@ -1,5 +1,18 @@
 const { Employee } = require("../models");
 
+const getAll = async (req, res) => {
+  try {
+    const employees = await Employee.findAll({
+      where: { client_id: req.query.clientId },
+      attributes: ["id", "name", "employee_id", "mobile_number"],
+    });
+    res.json({ employees });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 const getOne = async (req, res) => {
   const { id } = req.params;
   try {
@@ -13,6 +26,7 @@ const getOne = async (req, res) => {
 
 const createOne = async (req, res) => {
   try {
+    console.log("Shamil", req.body);
     const employee = await Employee.create({ ...req.body });
     res.status(201).json({ employee });
   } catch (err) {
@@ -32,4 +46,4 @@ const updateOne = async (req, res) => {
   }
 };
 
-module.exports = { getOne, createOne, updateOne };
+module.exports = { getAll, getOne, createOne, updateOne };
