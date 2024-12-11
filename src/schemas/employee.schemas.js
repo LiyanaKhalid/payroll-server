@@ -9,7 +9,7 @@ const createSchema = Joi.object({
   ifsc: Joi.string().required(),
   bank_name: Joi.string().required(),
   esi_number: Joi.string().required(),
-  aadhaar_number: Joi.number().required(),
+  aadhaar_number: Joi.number().unsafe().required(),
   date_of_birth: Joi.string().required(),
   mobile_number: Joi.string().required(),
   daily_wage: Joi.string().required(),
@@ -20,4 +20,4 @@ const createSchema = Joi.object({
   client_id: Joi.string().guid({ version: "uuidv4" }).required(),
 });
 
-module.exports = createSchema;
+module.exports = { createSchema };
